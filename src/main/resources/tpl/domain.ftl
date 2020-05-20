@@ -14,7 +14,6 @@ import core.framework.db.Table;
  */
 @Table(name = "${table.tableName}")
 public class ${table.name} {
-
     <#list fields as field>
     <#if field.name == "id">
     @PrimaryKey(autoIncrement = true)
@@ -22,13 +21,14 @@ public class ${table.name} {
     public Long id;
     <#else>
     <#if !field.nullable>
-    <#if !field.type == "String">
+    @NotNull
+    <#if field.type == "String">
     @NotBlank
     </#if>
-    @NotNull
     </#if>
     @Column(name = "${field.columnName}")
     public ${field.type} ${field.name};
     </#if>
+
     </#list>
 }
